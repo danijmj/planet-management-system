@@ -16,7 +16,7 @@ export interface PlanetType {
     rotation_period?: number
     orbital_period?: number
     surface_water?: number
-    population?: number | object
+    population?: number
     residents?: string[] | Habitant[]
     films?: string[]
     created?: Date
@@ -30,17 +30,17 @@ export interface PlanetType {
 export interface Habitant {
     name: string
     height: number
-    mass: number
-    hair_color: string
-    skin_color: string
-    eye_color: string
-    birth_year: string
-    gender: string
-    homeworld: string
-    films: string[]
-    species: string[]
-    vehicles: string[]
-    starships: string[]
+    mass?: number
+    hair_color?: string
+    skin_color?: string
+    eye_color?: string
+    birth_year?: string
+    gender?: string
+    homeworld?: string
+    films?: string[]
+    species?: string[]
+    vehicles?: string[]
+    starships?: string[]
     created?: Date
     edited?: Date
     url?: string
