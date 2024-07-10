@@ -1,16 +1,14 @@
 import axiosCall from "./Axios";
 
 
-type ApiOptions = {
+
+export type ApiOptions = {
     url: string,
     contentType: string,
 }
-
-type Query = {
+export type Query = {
     query: string
 }
-
-
 
 /**
  * object focus in create the http calls
@@ -19,7 +17,7 @@ type Query = {
 export const http = {
 
     /**
-     * Method to make get calls
+     * Make get calls
      * @param opts {url, contentType} arguments
      */
     get(opts: ApiOptions) {
@@ -27,7 +25,7 @@ export const http = {
     },
 
     /**
-     * Method to make post calls
+     * Make post calls
      * @param opts {url, contentType} arguments
      */
     post(opts: ApiOptions) {
@@ -35,7 +33,7 @@ export const http = {
     },
 
     /**
-     * 
+     * Call a external graphql service and return the data
      * @param query Query object for the graphql call
      * @param opts {url, contentType} arguments
      * @returns return a promise with a result object data
