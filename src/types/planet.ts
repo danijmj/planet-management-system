@@ -5,7 +5,9 @@
     - Climate
     - Terrain
     - Number of habitants of the planet
+    ---
     - List with the number of habitants
+    ...
 */
 export interface PlanetType {
     name: string
@@ -17,7 +19,7 @@ export interface PlanetType {
     orbital_period?: number
     surface_water?: number
     population?: number
-    residents?: string[] | Habitant[]
+    residents?: Habitant[]
     films?: string[]
     created?: Date
     edited?: Date
