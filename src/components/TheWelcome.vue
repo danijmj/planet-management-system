@@ -1,23 +1,26 @@
-<script setup lang="ts">
-import WelcomeItem from './WelcomeItem.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
-</script>
 
 <template>
-  <WelcomeItem>
+  <PlanetPreview id="1" viewUrl= "http://google.com" viewEdit= "http://google.com" viewDelete= "http://google.com">
     <template #icon>
-      <DocumentationIcon />
+      <IconPlanet />
     </template>
-    <template #heading>Documentation</template>
+    <template #name>Tatooine static</template>
+    <template #diameter>526</template>
+    <template #climate>arid</template>
+    <template #terrain>Desert</template>
+    <template #population>200000</template>
+  </PlanetPreview>
 
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
-  </WelcomeItem>
+  <PlanetPreview>
+    <template #icon>
+      <IconPlanet2 />
+    </template>
+    <template #name>Tatooine static</template>
+    <template #diameter>526</template>
+    <template #climate>arid</template>
+    <template #terrain>Desert</template>
+    <template #population>200000</template>
+  </PlanetPreview>
 
   <WelcomeItem>
     <template #icon>
@@ -86,3 +89,16 @@ import SupportIcon from './icons/IconSupport.vue'
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
   </WelcomeItem>
 </template>
+
+
+<script setup lang="ts">
+  import WelcomeItem from './WelcomeItem.vue'
+  import ToolingIcon from './icons/IconTooling.vue'
+  import EcosystemIcon from './icons/IconEcosystem.vue'
+  import CommunityIcon from './icons/IconCommunity.vue'
+  import SupportIcon from './icons/IconSupport.vue'
+  import IconPlanet from './icons/IconPlanet.vue'
+  import PlanetPreview from './PlanetPreview.vue'
+  import IconPlanet2 from './icons/IconPlanetTwo.vue'
+
+</script>
