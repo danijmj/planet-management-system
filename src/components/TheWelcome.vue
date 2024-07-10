@@ -100,5 +100,54 @@
   import IconPlanet from './icons/IconPlanet.vue'
   import PlanetPreview from './PlanetPreview.vue'
   import IconPlanet2 from './icons/IconPlanetTwo.vue'
+  import { http, type ApiOptions } from '@/utils/http/index'
+  import { usePlanetStore, usePlanet } from '@/stores/planets'
+
+
+  const opt:ApiOptions = 
+  {
+    url: "https://swapi-graphql.netlify.app/.netlify/functions/index",
+    contentType: 'application/json'
+  }
+  const graphqlQuery = {
+    query: `query Query {
+        allPlanets {
+          planets {
+            id
+            name
+            orbitalPeriod
+            gravity
+            diameter
+            climates
+            population
+            terrains
+            surfaceWater
+            rotationPeriod
+            residentConnection {
+              residents {
+                id
+                name
+                mass
+                skinColor
+                height
+                eyeColor
+                edited
+                created
+              }
+            }
+            edited
+            created
+          }
+        }
+      }`
+  }
+
+  http.graphqlCall(graphqlQuery, opt).then((data) => {
+    console.log("data", data)
+    usePlanetStore().setAllPlanets(data.data.allPlanets.planets)
+  })
+  
+  // console.log("planets", planets)
+
 
 </script>
