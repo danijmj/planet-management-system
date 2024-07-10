@@ -20,7 +20,7 @@ export const http = {
      * Make get calls
      * @param opts {url, contentType} arguments
      */
-    get(opts: ApiOptions) {
+    async get(opts: ApiOptions) {
         throw new Error("undefined method")
     },
 
@@ -28,7 +28,7 @@ export const http = {
      * Make post calls
      * @param opts {url, contentType} arguments
      */
-    post(opts: ApiOptions) {
+    async post(opts: ApiOptions) {
         throw new Error("undefined method")
     },
 
@@ -38,11 +38,11 @@ export const http = {
      * @param opts {url, contentType} arguments
      * @returns return a promise with a result object data
      */
-    graphqlCall(query: Query, opts: ApiOptions) : Promise<object> {
+    async graphqlCall(query: Query, opts: ApiOptions) : Promise<any> {
         
         const { url, contentType } = opts
-
-        return axiosCall.graphqlCall(query.query, url, contentType)
+        
+        return await axiosCall.graphqlCall(query.query, url, contentType)
 
     }
 }
