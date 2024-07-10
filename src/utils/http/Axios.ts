@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
-
 import axios from 'axios';
+
 
 const axiosCall = {
     /**
@@ -10,7 +10,7 @@ const axiosCall = {
      * @param contentType contentype of the petition
      * @returns return the petition data
      */
-    async graphqlCall(query: string, url: string, contentType: string) : Promise<object> {
+    async graphqlCall(query: string, url: string, contentType: string) : Promise<any> {
         
         // Set the data
         const data = JSON.stringify({
@@ -29,7 +29,8 @@ const axiosCall = {
           data : data
         };
         
-        return await this.sendPetition(config)
+        const response = await this.sendPetition(config)
+        return response
     },
 
     /**
@@ -37,18 +38,19 @@ const axiosCall = {
      * @param config Options for the axios petition
      * @returns the response data
      */
-    sendPetition(config:AxiosRequestConfig) : any {
+    sendPetition(config:AxiosRequestConfig) : Promise<any> {
+
+      return new Promise((resolve, rejects) => {
         axios.request(config)
         .then((response: { data: any; }) => {
-            return response.data
+            resolve(response.data)
         })
         .catch((error: any) => {
             console.log(error);
-            return {}
-        })
-        .catch(() => {
-            return {}
-        })
+            rejects(error)
+        });
+      })
+        
     }
 }
 
