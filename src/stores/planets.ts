@@ -29,8 +29,8 @@ export const usePlanetStore = defineStore({
             return this.planets.slice(itemsPerPage * page, end )
         },
 
-        async getAllPlanetsFromApi() {
-            return this.planets;
+        setAllPlanets(planets: any) {
+            return this.planets = planets;
         }
   }
 });

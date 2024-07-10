@@ -11,32 +11,37 @@
 */
 export interface PlanetType {
     name: string
-    diameter: number
-    climate?: string
-    terrain?: string
+    id?:string
+    diameter?: number
+    climates?: string[]
+    terrains?: string[]
     gravity?: string
-    rotation_period?: number
-    orbital_period?: number
-    surface_water?: number
+    rotationPeriod?: number
+    orbitalPeriod?: number
+    surfaceWater?: number
     population?: number
-    residents?: Habitant[]
+    residentConnection?: {
+        residents: Habitant[]
+    }
     films?: string[]
     created?: Date
     edited?: Date
     url?: string
 }
 
+
 /** 
  * The habitant interface 
  * */
 export interface Habitant {
     name: string
-    height: number
+    id?: string
+    height?: number
     mass?: number
-    hair_color?: string
-    skin_color?: string
-    eye_color?: string
-    birth_year?: string
+    hairColor?: string
+    skinColor?: string
+    eyeColor?: string
+    birthYear?: string
     gender?: string
     homeworld?: string
     films?: string[]
