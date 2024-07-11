@@ -10,6 +10,10 @@
 
   --vt-c-indigo: #2c3e50;
 
+  --vt-c-ok: #5b833e;
+  --vt-c-cancel: #83573e;
+
+
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
@@ -83,4 +87,66 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.btn {
+  --b: 3px;   /* border thickness */
+  --s: .45em; /* size of the corner */
+  --color: #373B44;
+  min-width: 6rem;
+  
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:hover,
+.btn:focus-visible{
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.btn:active {
+  background: var(--color);
+  color: #fff;
+}
+
+.btn.primary {
+  outline-color: var(--vt-c-ok);
+}
+.btn.primary:hover,
+.btn.primary:focus-visible{
+  --_p: 0px;
+  outline-color: var(--vt-c-ok);
+}
+
+.btn.cancel {
+  outline-color: var(--vt-c-cancel);
+}
+.btn.cancel:hover,
+.btn.cancel:focus-visible{
+  --_p: 0px;
+  outline-color: var(--vt-c-cancel);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
 }
