@@ -1,17 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+
+export const RouteNames = {
+  HOME: 'home',
+  PLANET: 'planet',
+  EDITPLANET: 'edit-planet',
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: RouteNames.HOME,
       component: HomeView
     },
     {
       path: '/planet/:id?',
-      name: 'planet',
+      name: RouteNames.PLANET,
       meta: {
         title: 'View Planet',
       },
@@ -19,8 +26,8 @@ const router = createRouter({
       props: true,
       children: [
         {
-          path: '/edit',
-          name: 'edit-planet',
+          path: 'edit',
+          name: RouteNames.EDITPLANET,
           meta: {
             title: 'Edit Planet',
           },
@@ -31,5 +38,6 @@ const router = createRouter({
     }
   ]
 })
+
 
 export default router

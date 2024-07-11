@@ -2,7 +2,7 @@
     <div class="item" v-if="planet">
         <div class="head">
             <i class="mainicon">
-                <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
+                <component v-bind:is="icoComponents[Math.floor(Math.random() * icoComponents.length)]"></component>
             </i>
             <h2>
                 {{planet.name}}
@@ -45,7 +45,8 @@
     import IconEdit from '@/components/icons/IconEdit.vue'
     import IconDelete from '@/components/icons/IconDelete.vue'
     import IconSee from '@/components/icons/IconSee.vue'
-    import { RouterLink } from 'vue-router'
+    import { RouterLink, useRouter } from 'vue-router'
+    import { RouteNames } from '@/router'
     import { ref } from 'vue'
     import IconPlanet from '@/components/icons/IconPlanet.vue'
     import IconPlanetTwo from '@/components/icons/IconPlanetTwo.vue'
@@ -56,6 +57,8 @@
         name: 'view-planet',
         components: {
             RouterLink,
+            useRouter,
+            RouteNames,
             IconEdit,
             IconDelete,
             PlanetDeletePopup,
@@ -64,7 +67,7 @@
         props: ['id'],
 
         setup(props) {
-            const components = [
+            const icoComponents = [
                 IconPlanetTwo,
                 IconPlanet
             ]
@@ -84,11 +87,18 @@
                 showPopup.value = true;
             }
 
+            const router = useRouter()
+
             // Method to delete a planet
             const deletePlanet = () => {
                 // To add some security
                 showPopup.value = false;
                 useP.deleteItem(props.id)
+
+                // Navegate to the home
+                router.push({
+                    name: RouteNames.HOME
+                })
             }
 
             // Method to cancel de deletion
@@ -97,7 +107,7 @@
             }
 
             return{
-                components,
+                icoComponents,
                 deletePlanet,
                 notDeletePlanet,
                 openPopupDeletePlanet,

@@ -11,12 +11,12 @@
       </h3>
       <div class="actions">
           <div class="view">
-              <RouterLink :to="'/planet/' + id" title="See">
+              <RouterLink :to="{ name: 'planet', params: { id: id }}" title="See">
                   <i><IconSee/></i>
               </RouterLink>
           </div>
           <div class="edit">
-              <RouterLink :to="'/planet/' + id + '/edit'" title="Edit">
+              <RouterLink :to="{ name: 'edit-planet', params: { id: id }}" title="Edit">
                   <i><IconEdit/></i>
               </RouterLink>
           </div>
@@ -61,13 +61,13 @@
   export default {
     name: 'planet-preview',
     components: {
-      RouterLink,
       IconSee,
       IconEdit,
       IconDelete,
+      RouterLink,
       PlanetDeletePopup
     },
-    props: ['planet', 'id', 'viewUrl', 'viewEdit', 'viewDelete'],
+    props: ['planet', 'id'],
 
     setup(props) {
       const components = [
