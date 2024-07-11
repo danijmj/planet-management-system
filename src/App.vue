@@ -6,15 +6,14 @@ import InitMessage from './components/InitMessage.vue'
 <template>
   <header>
     <div class="container_head">
-
-      <img alt="Vue logo" class="logo" src="@/assets/starwars.png"/>
-      
+      <RouterLink to="/" class="linklogo">
+        <img alt="Star Wars" class="logo" src="@/assets/starwars.png"/>
+      </RouterLink>
       <div class="wrapper">
         <InitMessage msg="Star Wars" />
         
         <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/">Return to the list</RouterLink>
         </nav>
       </div>
     </div>
@@ -119,6 +118,10 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+.linklogo:hover {
+  background-color: initial;
 }
 
 @media (min-width: 1024px) {
