@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="item">
     <i class="mainicon">
