@@ -23,6 +23,57 @@ import InitMessage from './components/InitMessage.vue'
   <RouterView />
 </template>
 
+<script lang="ts">
+import { usePlanet } from '@/stores/planets'
+import { http, type ApiOptions } from '@/utils/http/index'
+
+// Config of the graphql petition
+const opt:ApiOptions = 
+{
+  url: "https://swapi-graphql.netlify.app/.netlify/functions/index",
+  contentType: 'application/json'
+}
+const graphqlQuery = {
+  query: `query Query {
+      allPlanets {
+        planets {
+          id
+          name
+          orbitalPeriod
+          gravity
+          diameter
+          climates
+          population
+          terrains
+          surfaceWater
+          rotationPeriod
+          residentConnection {
+            residents {
+              id
+              name
+              mass
+              skinColor
+              height
+              eyeColor
+              edited
+              created
+            }
+          }
+          edited
+          created
+        }
+      }
+    }`
+}
+const useP = usePlanet();
+
+// Init call to the api to get all planets (and their habitants)
+http.graphqlCall(graphqlQuery, opt).then((res) => {
+  console.log("data", res)
+  useP.setAllPlanets(res.data.data.allPlanets.planets)
+})
+</script>
+
 <style scoped>
 header {
   line-height: 1.5;
