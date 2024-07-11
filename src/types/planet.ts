@@ -11,7 +11,7 @@
 */
 export interface PlanetType {
     name: string
-    id?:string
+    id:string
     diameter?: number
     climates?: string[]
     terrains?: string[]

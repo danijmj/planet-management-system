@@ -42,8 +42,8 @@ const axiosCall = {
 
       return new Promise((resolve, rejects) => {
         axios.request(config)
-        .then((response: { data: any; }) => {
-            resolve(response.data)
+        .then((response: any) => {
+            resolve(response)
         })
         .catch((error: any) => {
             console.log(error);
