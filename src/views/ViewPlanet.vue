@@ -1,29 +1,27 @@
 <template>
     <div class="item" v-if="planet">
-        <i class="mainicon">
-            <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
-        </i>
-        <div class="details">
-            <h3>
+        <div class="head">
+            <i class="mainicon">
+                <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
+            </i>
+            <h2>
                 {{planet.name}}
-            </h3>
-            <div class="actions">
-                <div class="view">
-                    <RouterLink :to="viewUrl" title="See">
-                        <i><ToolingIcon/></i>
-                    </RouterLink>
-                </div>
-                <div class="edit">
-                    <RouterLink :to="viewEdit" title="Edit">
-                        <i><EcosystemIcon/></i>
-                    </RouterLink>
-                </div>
-                <div class="remove">
-                    <a to="javascript:void(0)" v-on:click="openPopupDeletePlanet" title="Delete">
-                        <i><SupportIcon/></i>
-                    </a>
-                </div>
+            </h2>
+        </div>
+        
+        <div class="actions">
+            <div class="edit">
+                <RouterLink :to="urlEdit" title="Edit">
+                    <i><IconEdit/></i>
+                </RouterLink>
             </div>
+            <div class="remove">
+                <a to="javascript:void(0)" v-on:click="openPopupDeletePlanet" title="Delete">
+                    <i><IconDelete/></i>
+                </a>
+            </div>
+        </div>
+        <div class="details">
             <div v-if="planet">
                 <p class="diameter">
                     <strong>Diameter: </strong>{{planet.diameter}}
@@ -40,16 +38,13 @@
             </div>
         </div>
     </div>
-    <PlanetDeletePopup :msg="'¿Seguro que desea eliminar el planeta '+ planet.name +'?'" v-if="showPopup">
-        <template #yes><a :on-click="deletePlanet">yes</a></template>
-        <template #no><a :on-click="notDeletePlanet">no</a></template>
-    </PlanetDeletePopup>
+    <PlanetDeletePopup :msg="'¿Seguro que desea eliminar el planeta '+ planet.name +'?'" v-if="showPopup" @delete="deletePlanet" @no-delete="notDeletePlanet" />
 </template>
   
 <script lang="ts">
-    import ToolingIcon from '@/components/icons/IconTooling.vue'
-    import EcosystemIcon from '@/components/icons/IconEcosystem.vue'
-    import SupportIcon from '@/components/icons/IconSupport.vue'
+    import IconEdit from '@/components/icons/IconEdit.vue'
+    import IconDelete from '@/components/icons/IconDelete.vue'
+    import IconSee from '@/components/icons/IconSee.vue'
     import { RouterLink } from 'vue-router'
     import { ref } from 'vue'
     import IconPlanet from '@/components/icons/IconPlanet.vue'
@@ -58,21 +53,23 @@
     import { usePlanet } from '@/stores/planets'
 
     export default {
-        name: 'planet-preview',
+        name: 'view-planet',
         components: {
             RouterLink,
-            EcosystemIcon,
-            SupportIcon,
+            IconEdit,
+            IconDelete,
             PlanetDeletePopup,
-            ToolingIcon
+            IconSee
         },
-        props: ['id', 'viewUrl', 'viewEdit', 'viewDelete'],
+        props: ['id'],
 
         setup(props) {
             const components = [
                 IconPlanetTwo,
                 IconPlanet
             ]
+
+            const urlEdit = "/planet/"+ props.id +"/edit/";
 
             // Set the storage
             const useP = usePlanet();
@@ -82,30 +79,20 @@
             // Get a specified planet
             const planet = useP.getSpecifiedPlanet(props.id)
 
-            // Method to delete a planet
+            // Open the popup to delete
             const openPopupDeletePlanet = () => {
-                // To add some security
-                if (props.id == planet.id)
-                {
-                    showPopup.value = true;
-                }
+                showPopup.value = true;
             }
 
             // Method to delete a planet
             const deletePlanet = () => {
                 // To add some security
-                if (props.id == planet.id)
-                {
-                    showPopup.value = false;
-                    useP.deleteItem(props.id)
-                    
-                }
+                showPopup.value = false;
+                useP.deleteItem(props.id)
             }
 
-            
-            // Method to delete a planet
+            // Method to cancel de deletion
             const notDeletePlanet = () => {
-                // To add some security
                 showPopup.value = false;
             }
 
@@ -115,7 +102,8 @@
                 notDeletePlanet,
                 openPopupDeletePlanet,
                 planet,
-                showPopup
+                showPopup,
+                urlEdit
             } 
         }
     }
@@ -124,7 +112,8 @@
   <style scoped>
   .item {
     margin-top: 2rem;
-    display: flex;
+    display: block;
+    width: 100%;
     position: relative;
   }
   
@@ -135,12 +124,12 @@
   }
   
   .actions {
-    position: absolute;
-    right: 0;
-    top: 0;
+    position: relative;
+    right: -12px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    padding: 5px 0px 20px;
   
     div {
         a {
@@ -173,17 +162,14 @@
     height: 25px;
   }
   
-  h3 {
-    font-size: 1.2rem;
+  h2 {
+    font-size: 1.8rem;
     font-weight: 500;
     margin-bottom: 0.4rem;
     color: var(--color-heading);
   }
   p {
-    padding: auto;
-  }
-  span {
-    padding-right: 20px;
+    padding-bottom: 5px;
   }
   
   @media (min-width: 1024px) {
@@ -192,16 +178,22 @@
       padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
       margin-bottom: 1rem;
     }
+    .head {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        -ms-flex-align: end;
+        align-items: flex-end;
+        width: 100%;
+    }
   
     .mainicon {
-      top: calc(50% - 25px);
-      left: -26px;
-      position: absolute;
-      border: 1px solid var(--color-border);
-      background: var(--color-background);
-      border-radius: 8px;
-      width: 50px;
-      height: 50px;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    h2 {
+        margin-left: 20px;
     }
   
     .item:first-of-type:before {
