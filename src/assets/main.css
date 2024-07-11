@@ -15,6 +15,10 @@ a,
   padding: 3px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
@@ -31,5 +35,17 @@ a,
     display: grid;
     grid-template-columns: 1fr 2fr;
     padding: 0 2rem;
+    position: relative;
+  }
+
+  main {
+    height: 100svh;
+    overflow-y: scroll;
+    /* overflow-x: visible; */
+    position: relative;
+    /* width: calc(100svw - 33.34%); */
+    /* width: 66.6svw; */
+    max-width: 66.6svw;
+    padding: 20px 30px;
   }
 }

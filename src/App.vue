@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import InitMessage from './components/InitMessage.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/starwars.png"/>
+    <div class="container_head">
 
-    <div class="wrapper">
-      <HelloWorld msg="Star Wars" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+      <img alt="Vue logo" class="logo" src="@/assets/starwars.png"/>
+      
+      <div class="wrapper">
+        <InitMessage msg="Star Wars" />
+        
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -27,6 +30,12 @@ header {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  position: relative;
+}
+.container_head {
+  position: absolute;
+  transform: translatey(-50%);
+  top: 50%;
 }
 
 .logo {
