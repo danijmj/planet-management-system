@@ -12,17 +12,17 @@
         <div class="actions">
             <div class="view">
                 <RouterLink :to="'/planet/' + id" title="See">
-                    <i><ToolingIcon/></i>
+                    <i><IconSee/></i>
                 </RouterLink>
             </div>
             <div class="edit">
                 <RouterLink :to="'/planet/' + id + '/edit'" title="Edit">
-                    <i><EcosystemIcon/></i>
+                    <i><IconEdit/></i>
                 </RouterLink>
             </div>
             <div class="remove">
                 <a to="javascript:void(0)" v-on:click="deletePlanet" title="Delete">
-                    <i><SupportIcon/></i>
+                    <i><IconDelete/></i>
                 </a>
             </div>
         </div>
@@ -45,9 +45,9 @@
 </template>
 
 <script lang="ts">
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import SupportIcon from './icons/IconSupport.vue'
+import IconEdit from './icons/IconEdit.vue'
+import IconDelete from './icons/IconDelete.vue'
+import IconSee from './icons/IconSee.vue'
 import { RouterLink } from 'vue-router'
 import IconPlanet from './icons/IconPlanet.vue'
 import IconPlanetTwo from './icons/IconPlanetTwo.vue'
@@ -59,9 +59,9 @@ export default {
     name: 'planet-preview',
     components: {
     RouterLink,
-    EcosystemIcon,
-    SupportIcon,
-    ToolingIcon
+    IconSee,
+    IconEdit,
+    IconDelete
     },
     props: ['planet', 'id', 'viewUrl', 'viewEdit', 'viewDelete'],
 
