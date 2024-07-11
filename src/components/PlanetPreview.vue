@@ -11,19 +11,19 @@
         </h3>
         <div class="actions">
             <div class="view">
-                <RouterLink :to="viewUrl" title="See">
+                <RouterLink :to="'/planet/' + id" title="See">
                     <i><ToolingIcon/></i>
                 </RouterLink>
             </div>
             <div class="edit">
-                <RouterLink :to="viewEdit" title="Edit">
+                <RouterLink :to="'/planet/' + id + '/edit'" title="Edit">
                     <i><EcosystemIcon/></i>
                 </RouterLink>
             </div>
             <div class="remove">
-                <RouterLink :to="viewDelete" title="Delete">
+                <a to="javascript:void(0)" v-on:click="deletePlanet" title="Delete">
                     <i><SupportIcon/></i>
-                </RouterLink>
+                </a>
             </div>
         </div>
         <p>
@@ -51,6 +51,9 @@ import SupportIcon from './icons/IconSupport.vue'
 import { RouterLink } from 'vue-router'
 import IconPlanet from './icons/IconPlanet.vue'
 import IconPlanetTwo from './icons/IconPlanetTwo.vue'
+import { usePlanet } from '@/stores/planets'
+
+
 
 export default {
     name: 'planet-preview',
@@ -60,16 +63,26 @@ export default {
     SupportIcon,
     ToolingIcon
     },
-    props: ['viewUrl', 'viewEdit', 'viewDelete'],
+    props: ['planet', 'id', 'viewUrl', 'viewEdit', 'viewDelete'],
 
-    setup() {
+    setup(props) {
         const components = [
             IconPlanetTwo,
             IconPlanet
         ]
+        
+        const useP = usePlanet();
+
+        const deletePlanet = () => {
+          if (props.id == props.planet.id)
+          {
+            useP.deleteItem(props.id)
+          }
+        }
 
         return{
-            components
+            components,
+            deletePlanet
         } 
     }
 }
