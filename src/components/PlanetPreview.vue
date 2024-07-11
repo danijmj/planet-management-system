@@ -1,91 +1,113 @@
 
 
 <template>
-    <div class="item">
-        <i class="mainicon">
-            <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
-        </i>
-      <div class="details">
-        <h3>
-            <slot name="name"></slot>
-        </h3>
-        <div class="actions">
-            <div class="view">
-                <RouterLink :to="'/planet/' + id" title="See">
-                    <i><IconSee/></i>
-                </RouterLink>
-            </div>
-            <div class="edit">
-                <RouterLink :to="'/planet/' + id + '/edit'" title="Edit">
-                    <i><IconEdit/></i>
-                </RouterLink>
-            </div>
-            <div class="remove">
-                <a to="javascript:void(0)" v-on:click="deletePlanet" title="Delete">
-                    <i><IconDelete/></i>
-                </a>
-            </div>
-        </div>
-        <p>
-            <span class="diameter">
-              <strong>Diameter: </strong><slot name="diameter"></slot>
-            </span>
-            <span class="climate">
-              <b>Climate: </b><slot name="climate"></slot>
-            </span>
-            <span class="terrain">
-              <b>Terrain: </b><slot name="terrain"></slot>
-            </span>
-            <span class="population">
-              <b>Population: </b><slot name="population"></slot>
-            </span>
-        </p>
+  <div class="item">
+    <i class="mainicon">
+        <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
+    </i>
+    <div class="details">
+      <h3>
+          <slot name="name"></slot>
+      </h3>
+      <div class="actions">
+          <div class="view">
+              <RouterLink :to="'/planet/' + id" title="See">
+                  <i><IconSee/></i>
+              </RouterLink>
+          </div>
+          <div class="edit">
+              <RouterLink :to="'/planet/' + id + '/edit'" title="Edit">
+                  <i><IconEdit/></i>
+              </RouterLink>
+          </div>
+          <div class="remove">
+              <a to="javascript:void(0)" v-on:click="openPopupDeletePlanet" title="Delete">
+                  <i><IconDelete/></i>
+              </a>
+          </div>
       </div>
+      <p>
+          <span class="diameter">
+            <strong>Diameter: </strong><slot name="diameter"></slot>
+          </span>
+          <span class="climate">
+            <b>Climate: </b><slot name="climate"></slot>
+          </span>
+          <span class="terrain">
+            <b>Terrain: </b><slot name="terrain"></slot>
+          </span>
+          <span class="population">
+            <b>Population: </b><slot name="population"></slot>
+          </span>
+      </p>
     </div>
+  </div>
+  <PlanetDeletePopup :msg="'¿Seguro que desea eliminar el planeta '+ planet.name +'?'" v-if="showPopup" @delete="deletePlanet" @no-delete="notDeletePlanet" />
 </template>
 
 <script lang="ts">
-import IconEdit from './icons/IconEdit.vue'
-import IconDelete from './icons/IconDelete.vue'
-import IconSee from './icons/IconSee.vue'
-import { RouterLink } from 'vue-router'
-import IconPlanet from './icons/IconPlanet.vue'
-import IconPlanetTwo from './icons/IconPlanetTwo.vue'
-import { usePlanet } from '@/stores/planets'
+  import IconEdit from './icons/IconEdit.vue'
+  import IconDelete from './icons/IconDelete.vue'
+  import IconSee from './icons/IconSee.vue'
+  import { RouterLink } from 'vue-router'
+  import { ref } from 'vue'
+  import IconPlanet from './icons/IconPlanet.vue'
+  import IconPlanetTwo from './icons/IconPlanetTwo.vue'
+  import { usePlanet } from '@/stores/planets'
+  import PlanetDeletePopup from '@/components/PlanetDeletepopup.vue'
 
 
 
-export default {
+  export default {
     name: 'planet-preview',
     components: {
-    RouterLink,
-    IconSee,
-    IconEdit,
-    IconDelete
+      RouterLink,
+      IconSee,
+      IconEdit,
+      IconDelete,
+      PlanetDeletePopup
     },
     props: ['planet', 'id', 'viewUrl', 'viewEdit', 'viewDelete'],
 
     setup(props) {
-        const components = [
-            IconPlanetTwo,
-            IconPlanet
-        ]
-        
-        const useP = usePlanet();
+      const components = [
+          IconPlanetTwo,
+          IconPlanet
+      ]
+      
+      const useP = usePlanet();
 
-        const deletePlanet = () => {
-          if (props.id == props.planet.id)
-          {
-            useP.deleteItem(props.id)
-          }
-        }
+      
+      let showPopup = ref(false);
 
-        return{
-            components,
-            deletePlanet
-        } 
+
+
+      // Open the popup to delete
+      const openPopupDeletePlanet = () => {
+        showPopup.value = true;
+      }
+
+      // Method to delete a planet
+      const deletePlanet = () => {
+        // To add some security
+        showPopup.value = false;
+        useP.deleteItem(props.id)
+      }
+
+      // Method to cancel de deletion
+      const notDeletePlanet = () => {
+        showPopup.value = false;
+      }
+
+      return{
+          components,
+          deletePlanet,
+          openPopupDeletePlanet,
+          notDeletePlanet,
+          showPopup
+      } 
     }
-}
+  }
 </script>
   
 <style scoped>
