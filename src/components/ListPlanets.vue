@@ -1,6 +1,6 @@
 
 <template>
-  <PlanetPreview v-for="plan, key in useP.getAllPlanets" :key="key" :id="plan.id" viewUrl="" viewEdit= "" viewDelete= "">
+  <PlanetPreview v-for="plan, key in useP.getAllPlanets" :planet="plan" :key="key" :id="plan.id">
     <template #name>{{plan.name}}</template>
     <template #diameter>{{plan.diameter}}</template>
     <template #climate>{{(plan.climates && plan.climates?.length > 0) ? plan.climates[0] : undefined}}</template>
