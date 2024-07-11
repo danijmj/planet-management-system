@@ -3,7 +3,7 @@
 <template>
     <div class="item">
         <i class="mainicon">
-            <slot name="icon"></slot>
+            <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
         </i>
       <div class="details">
         <h3>
@@ -49,6 +49,8 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import SupportIcon from './icons/IconSupport.vue'
 import { RouterLink } from 'vue-router'
+import IconPlanet from './icons/IconPlanet.vue'
+import IconPlanetTwo from './icons/IconPlanetTwo.vue'
 
 export default {
     name: 'planet-preview',
@@ -59,10 +61,21 @@ export default {
     ToolingIcon
     },
     props: ['viewUrl', 'viewEdit', 'viewDelete'],
+
+    setup() {
+        const components = [
+            IconPlanetTwo,
+            IconPlanet
+        ]
+
+        return{
+            components
+        } 
+    }
 }
 </script>
   
-  <style scoped>
+<style scoped>
   .item {
     margin-top: 2rem;
     display: flex;
@@ -131,6 +144,7 @@ export default {
     .item {
       margin-top: 0;
       padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
+      margin-bottom: 1rem;
     }
   
     .mainicon {
@@ -143,25 +157,7 @@ export default {
       width: 50px;
       height: 50px;
     }
-  
-    .item:before {
-      content: ' ';
-      border-left: 1px solid var(--color-border);
-      position: absolute;
-      left: 0;
-      bottom: calc(50% + 25px);
-      height: calc(50% - 25px);
-    }
-  
-    .item:after {
-      content: ' ';
-      border-left: 1px solid var(--color-border);
-      position: absolute;
-      left: 0;
-      top: calc(50% + 25px);
-      height: calc(50% - 25px);
-    }
-  
+
     .item:first-of-type:before {
       display: none;
     }
