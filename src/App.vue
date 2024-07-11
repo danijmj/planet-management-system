@@ -56,6 +56,7 @@ import InitMessage from './components/InitMessage.vue'
                 eyeColor
                 edited
                 created
+                birthYear
               }
             }
             edited

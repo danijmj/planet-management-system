@@ -23,18 +23,22 @@
         </div>
         <div class="details">
             <div v-if="planet">
-                <p class="diameter">
+                <p class="diameter" v-if="planet.diameter">
                     <strong>Diameter: </strong>{{planet.diameter}}
                 </p>
-                <p class="climate">
+                <p class="climate" v-if="planet.climates">
                     <b>Climate: </b>{{planet.climates?.join(', ')}}
                 </p>
-                <p class="terrain">
+                <p class="terrain" v-if="planet.terrains">
                     <b>Terrain: </b>{{planet.terrains?.join(', ')}}
                 </p>
-                <p class="population">
+                <p class="population" v-if="planet.population">
                     <b>Population: </b>{{planet.population}}
                 </p>
+                <div v-if="planet.residentConnection?.residents" class="residents">
+                    <strong class="text">Residents:</strong>
+                    <ResidentComponent v-for="resident, key in planet.residentConnection?.residents" :resident="resident" :key="key"></ResidentComponent>
+                </div>
             </div>
         </div>
     </div>
@@ -52,13 +56,14 @@
     import IconPlanetTwo from '@/components/icons/IconPlanetTwo.vue'
     import PlanetDeletePopup from '@/components/planet/PlanetDeletepopup.vue'
     import { usePlanet } from '@/stores/planets'
+    import ResidentComponent from '@/components/residents/ResidentComponent.vue'
 
     export default {
         name: 'view-planet',
         components: {
             RouterLink,
             useRouter,
-            RouteNames,
+            ResidentComponent,
             IconEdit,
             IconDelete,
             PlanetDeletePopup,
@@ -131,6 +136,13 @@
     flex: 1;
     margin-left: 1rem;
     position: relative;
+  }
+  
+  .residents {
+    padding-top: 20px;
+    .text {
+        font-weight: 600;
+    }
   }
   
   .actions {

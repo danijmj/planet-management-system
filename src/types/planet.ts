@@ -45,8 +45,6 @@ export interface Habitant {
     gender?: string
     homeworld?: string
     films?: string[]
-    species?: string[]
-    vehicles?: string[]
     starships?: string[]
     created?: Date
     edited?: Date
