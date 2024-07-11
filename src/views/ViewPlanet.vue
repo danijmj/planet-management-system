@@ -50,7 +50,7 @@
     import { ref } from 'vue'
     import IconPlanet from '@/components/icons/IconPlanet.vue'
     import IconPlanetTwo from '@/components/icons/IconPlanetTwo.vue'
-    import PlanetDeletePopup from '@/components/PlanetDeletepopup.vue'
+    import PlanetDeletePopup from '@/components/planet/PlanetDeletepopup.vue'
     import { usePlanet } from '@/stores/planets'
 
     export default {

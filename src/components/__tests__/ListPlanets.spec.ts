@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 import { mount } from '@vue/test-utils'
-import ListPlanets from '../ListPlanets.vue'
+import ListPlanets from '../planet/ListPlanets.vue'
 import { setActivePinia, createPinia } from 'pinia'
 import { usePlanet } from '@/stores/planets'
 import type { PlanetType } from '@/types/planet'

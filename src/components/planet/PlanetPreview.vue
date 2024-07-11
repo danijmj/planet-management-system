@@ -46,15 +46,15 @@
 </template>
 
 <script lang="ts">
-  import IconEdit from './icons/IconEdit.vue'
-  import IconDelete from './icons/IconDelete.vue'
-  import IconSee from './icons/IconSee.vue'
+  import IconEdit from '../icons/IconEdit.vue'
+  import IconDelete from '../icons/IconDelete.vue'
+  import IconSee from '../icons/IconSee.vue'
   import { RouterLink } from 'vue-router'
   import { ref } from 'vue'
-  import IconPlanet from './icons/IconPlanet.vue'
-  import IconPlanetTwo from './icons/IconPlanetTwo.vue'
+  import IconPlanet from '../icons/IconPlanet.vue'
+  import IconPlanetTwo from '../icons/IconPlanetTwo.vue'
   import { usePlanet } from '@/stores/planets'
-  import PlanetDeletePopup from '@/components/PlanetDeletepopup.vue'
+  import PlanetDeletePopup from '@/components/planet/PlanetDeletepopup.vue'
 
 
 

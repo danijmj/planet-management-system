@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vitest, vi } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
-import PlanetPreview from '../PlanetPreview.vue'
+import PlanetPreview from '../planet/PlanetPreview.vue'
 import { setActivePinia, createPinia } from 'pinia'
 import type { PlanetType } from '@/types/planet'
 
