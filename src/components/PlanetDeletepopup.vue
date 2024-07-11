@@ -56,20 +56,18 @@ h2 {
 }
 
 .popup {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-}
-
-.popup-delete {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
   background-color: transparent;
   border-radius: 4px;
   border: solid #d5d5d5 1px;
   box-shadow: 1px 2px 2px #c2c2c2;
   padding: 40px 50px 60px;
+  z-index: 2;
 }
 
 .bglayer {
