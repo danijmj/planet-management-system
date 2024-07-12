@@ -13,7 +13,8 @@ import InitMessage from './components/InitMessage.vue'
         <InitMessage msg="Star Wars" />
         
         <nav>
-          <RouterLink to="/">Return to the list</RouterLink>
+          <RouterLink :to="{name: RouteNames.HOME}">Return to the list</RouterLink>
+          <RouterLink :to="{name: RouteNames.PLANETNEW}">New planet</RouterLink>
         </nav>
       </div>
     </div>
@@ -25,6 +26,7 @@ import InitMessage from './components/InitMessage.vue'
 <script lang="ts">
   import { usePlanet } from '@/stores/planets'
   import { http, type ApiOptions } from '@/utils/http/index'
+  import { RouteNames } from '@/router'
 
   // Config of the graphql petition
   const opt:ApiOptions = 
