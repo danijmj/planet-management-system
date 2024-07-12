@@ -6,7 +6,7 @@
             </h4>
             <div>
                 <p v-if="resident.mass"><strong>mass: </strong> {{ resident.mass }}</p>
-                <p v-if="resident.height"><strong>mass: </strong> {{ resident.height }}</p>
+                <p v-if="resident.height"><strong>height: </strong> {{ resident.height }}</p>
                 <p v-if="resident.birthYear"><strong>birth year: </strong>{{ resident.birthYear }}</p>
                 <p v-if="resident.gender"><strong>Gender: </strong>{{ resident.gender }}</p>
                 <p v-if="resident.hairColor"><strong>hairColor: </strong>{{ resident.hairColor }}</p>
