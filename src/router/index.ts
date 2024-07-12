@@ -29,7 +29,7 @@ const router = createRouter({
     },
     
     {
-      path: '/planet/edit/:id',
+      path: '/planet/edit/:id?',
       name: RouteNames.EDITPLANET,
       meta: {
         title: 'Edit Planet',
