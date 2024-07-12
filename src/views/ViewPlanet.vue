@@ -48,7 +48,6 @@
 <script lang="ts">
     import IconEdit from '@/components/icons/IconEdit.vue'
     import IconDelete from '@/components/icons/IconDelete.vue'
-    import IconSee from '@/components/icons/IconSee.vue'
     import { RouterLink, useRouter } from 'vue-router'
     import { RouteNames } from '@/router'
     import { ref } from 'vue'
@@ -66,8 +65,7 @@
             ResidentComponent,
             IconEdit,
             IconDelete,
-            PlanetDeletePopup,
-            IconSee
+            PlanetDeletePopup
         },
         props: ['id'],
 
@@ -77,7 +75,7 @@
                 IconPlanet
             ]
 
-            const urlEdit = "/planet/"+ props.id +"/edit/";
+            const urlEdit = { name: RouteNames.EDITPLANET, params: { id: props.id }};
 
             // Set the storage
             const useP = usePlanet();
