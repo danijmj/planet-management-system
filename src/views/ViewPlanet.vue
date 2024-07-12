@@ -2,7 +2,7 @@
     <div class="item" v-if="planet">
         <div class="head">
             <i class="mainicon">
-                <component v-bind:is="icoComponents[Math.floor(Math.random() * icoComponents.length)]"></component>
+                <component v-bind:is="planetComponent"></component>
             </i>
             <h2>
                 {{planet.name}}
@@ -50,7 +50,7 @@
     import IconDelete from '@/components/icons/IconDelete.vue'
     import { RouterLink, useRouter } from 'vue-router'
     import { RouteNames } from '@/router'
-    import { ref } from 'vue'
+    import { ref, computed } from 'vue'
     import IconPlanet from '@/components/icons/IconPlanet.vue'
     import IconPlanetTwo from '@/components/icons/IconPlanetTwo.vue'
     import PlanetDeletePopup from '@/components/planet/PlanetDeletepopup.vue'
@@ -75,6 +75,12 @@
                 IconPlanet
             ]
 
+            // We set the planet icon
+            const planetComponent = computed(() => {
+                return icoComponents[Math.floor(Math.random() * icoComponents.length)]
+            })
+
+            // Set the edit url
             const urlEdit = { name: RouteNames.EDITPLANET, params: { id: props.id }};
 
             // Set the storage
@@ -110,7 +116,7 @@
             }
 
             return{
-                icoComponents,
+                planetComponent,
                 deletePlanet,
                 notDeletePlanet,
                 openPopupDeletePlanet,

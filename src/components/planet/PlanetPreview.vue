@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <i class="mainicon">
-        <component v-bind:is="components[Math.floor(Math.random() * components.length)]"></component>
+        <component v-bind:is="planetComponent"></component>
     </i>
     <div class="details">
       <h3>
@@ -48,7 +48,7 @@
   import IconDelete from '../icons/IconDelete.vue'
   import IconSee from '../icons/IconSee.vue'
   import { RouterLink } from 'vue-router'
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import IconPlanet from '../icons/IconPlanet.vue'
   import IconPlanetTwo from '../icons/IconPlanetTwo.vue'
   import { usePlanet } from '@/stores/planets'
@@ -68,14 +68,21 @@
     props: ['planet', 'id'],
 
     setup(props) {
-      const components = [
+      const icoComponents = [
           IconPlanetTwo,
           IconPlanet
       ]
-      
-      const useP = usePlanet();
 
       
+      // We set the planet icon
+      const planetComponent = computed(() => {
+          return icoComponents[Math.floor(Math.random() * icoComponents.length)]
+      })
+
+      // use the store
+      const useP = usePlanet();
+
+      // Set if the popup should be shown
       let showPopup = ref(false);
 
 
@@ -98,7 +105,7 @@
       }
 
       return{
-          components,
+          planetComponent,
           deletePlanet,
           openPopupDeletePlanet,
           notDeletePlanet,
