@@ -41,7 +41,15 @@ export const usePlanetStore = defineStore({
          * Edit the planet
          * @param planet Datos del planeta a modificar
          */
-        editItem(planet: PlanetType, id: string) {
+        editPlanet(planet: PlanetType, id: string) {
+            this.planets[id] = planet;
+        },
+
+        /**
+         * Edit the planet
+         * @param planet Datos del planeta a modificar
+         */
+        newPlanet(planet: PlanetType, id: string) {
             this.planets[id] = planet;
         },
 
