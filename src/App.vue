@@ -9,7 +9,7 @@ import InitMessage from './components/InitMessage.vue'
       <RouterLink to="/" class="linklogo">
         <img alt="Star Wars" class="logo" src="@/assets/starwars.png"/>
       </RouterLink>
-      <div class="wrapper">
+      <div class="cwrapper">
         <InitMessage msg="Star Wars" />
         
         <nav>
@@ -85,15 +85,10 @@ header {
   flex-wrap: wrap;
   position: relative;
 }
-.container_head {
-  position: absolute;
-  transform: translatey(-50%);
-  top: 50%;
-}
 
 .logo {
   display: block;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
   width: 240px;
   height: auto;
 }
@@ -128,6 +123,13 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
+  
+  .container_head {
+    position: absolute;
+    transform: translatey(-50%);
+    top: 50%;
+  }
+
   header {
     display: flex;
     place-items: center;
@@ -138,7 +140,7 @@ nav a:first-of-type {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
+  header .cwrapper {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;

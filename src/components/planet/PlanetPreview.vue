@@ -165,6 +165,7 @@
     place-content: center;
     width: 25px;
     height: 25px;
+    margin: 5px 0;
   }
   
   h3 {
@@ -196,6 +197,7 @@
       border-radius: 8px;
       width: 50px;
       height: 50px;
+      margin: 0;
     }
 
     .item:first-of-type:before {

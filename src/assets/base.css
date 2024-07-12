@@ -10,8 +10,8 @@
 
   --vt-c-indigo: #2c3e50;
 
-  --vt-c-ok: #5b833e;
-  --vt-c-cancel: #83573e;
+  --vt-c-ok: rgb(91, 131, 62);
+  --vt-c-cancel: rgb(131, 87, 62);
 
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
@@ -89,58 +89,110 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.wrapper {
+  margin-top: 2rem;
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+
+@media (min-width: 1024px) {
+  .wrapper {
+    margin-top: 6rem;
+  }
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y)* -1);
+  margin-right: calc(var(--bs-gutter-x)* -.5);
+  margin-left: calc(var(--bs-gutter-x)* -.5);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.col {
+  flex: 1 0 100%
+}
+
+@media (min-width: 1024px) {
+  .col {
+    flex: 1 0 0%
+  }
+  .col-1-2 {
+    flex: 50% 1 0
+  }
+}
+
 .btn {
-  --b: 3px;   /* border thickness */
-  --s: .45em; /* size of the corner */
-  --color: #373B44;
-  min-width: 6rem;
-  
-  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
-  color: var(--color);
-  --_p: var(--s);
-  background:
-    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
-    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
-  transition: .3s linear, color 0s, background-color 0s;
-  outline: var(--b) solid #0000;
-  outline-offset: .6em;
-  font-size: 16px;
-
-  border: 0;
-
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 250px;
+  cursor: pointer;
+  color: var(--vt-c-black);
+  transition: all 0.5s;
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(255,255,255,0.5);
 }
-
-.btn:hover,
-.btn:focus-visible{
-  --_p: 0px;
-  outline-color: var(--color);
-  outline-offset: .05em;
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.2);
+  transition: all 0.3s;
 }
-
-.btn:active {
-  background: var(--color);
-  color: #fff;
+.btn:hover::before {
+  opacity: 0 ;
+  transform: scale(0.5,0.5);
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.3);
+  transform: scale(1.2,1.2);
+}
+.btn:hover::after {
+  opacity: 1;
+  transform: scale(1,1);
 }
 
 .btn.primary {
-  outline-color: var(--vt-c-ok);
+  background-color: rgba(91, 131, 62, .2);
 }
 .btn.primary:hover,
 .btn.primary:focus-visible{
   --_p: 0px;
-  outline-color: var(--vt-c-ok);
+  background-color: rgba(91, 131, 62, .2);
 }
 
 .btn.cancel {
-  outline-color: var(--vt-c-cancel);
+  border-color: var(--vt-c-cancel);
 }
 .btn.cancel:hover,
 .btn.cancel:focus-visible{
   --_p: 0px;
-  outline-color: var(--vt-c-cancel);
+  border-color: var(--vt-c-cancel);
 }
 
 .text-right {

@@ -1,5 +1,5 @@
 <template>
-    <div class="item" v-if="planet">
+    <div class="wrapper" v-if="planet">
         <div class="head">
             <i class="mainicon">
                 <component v-bind:is="planetComponent"></component>
@@ -7,36 +7,40 @@
             <h2>
                 {{planet.name}}
             </h2>
+            <div class="actions">
+                <div class="edit">
+                    <RouterLink :to="urlEdit" title="Edit">
+                        <i><IconEdit/></i>
+                    </RouterLink>
+                </div>
+                <div class="remove">
+                    <a to="javascript:void(0)" v-on:click="openPopupDeletePlanet" title="Delete">
+                        <i><IconDelete/></i>
+                    </a>
+                </div>
+            </div>
         </div>
         
-        <div class="actions">
-            <div class="edit">
-                <RouterLink :to="urlEdit" title="Edit">
-                    <i><IconEdit/></i>
-                </RouterLink>
-            </div>
-            <div class="remove">
-                <a to="javascript:void(0)" v-on:click="openPopupDeletePlanet" title="Delete">
-                    <i><IconDelete/></i>
-                </a>
-            </div>
-        </div>
         <div class="details">
-            <div v-if="planet">
-                <p class="diameter" v-if="planet.diameter">
-                    <strong>Diameter: </strong>{{planet.diameter}}
-                </p>
-                <p class="climate" v-if="planet.climates">
-                    <b>Climate: </b>{{planet.climates?.join(', ')}}
-                </p>
-                <p class="terrain" v-if="planet.terrains">
-                    <b>Terrain: </b>{{planet.terrains?.join(', ')}}
-                </p>
-                <p class="population" v-if="planet.population">
-                    <b>Population: </b>{{planet.population}}
-                </p>
-                <div v-if="planet.residentConnection?.residents" class="residents">
-                    <strong class="text">Residents:</strong>
+            <div class="row" v-if="planet">
+                <div class="col">
+                    <strong class="legend">Information:</strong>
+                    <p class="diameter" v-if="planet.diameter">
+                        <strong>Diameter: </strong>{{planet.diameter}}
+                    </p>
+                    <p class="climate" v-if="planet.climates && planet.climates.length > 0">
+                        <b>Climate: </b>{{planet.climates?.join(', ')}}
+                    </p>
+                    <p class="terrain" v-if="planet.terrains && planet.terrains.length > 0">
+                        <b>Terrain: </b>{{planet.terrains?.join(', ')}}
+                    </p>
+                    <p class="population" v-if="planet.population">
+                        <b>Population: </b>{{planet.population}}
+                    </p>
+                </div>
+
+                <div v-if="planet.residentConnection?.residents && planet.residentConnection?.residents.length > 0" class="col residents">
+                    <strong class="legend">Residents:</strong>
                     <ResidentComponent v-for="resident, key in planet.residentConnection?.residents" :resident="resident" :key="key"></ResidentComponent>
                 </div>
             </div>
@@ -128,107 +132,139 @@
     }
 </script>
   
-  <style scoped>
-  .item {
-    margin-top: 2rem;
-    display: block;
-    width: 100%;
-    position: relative;
-  }
-  
-  .details {
-    flex: 1;
-    margin-left: 1rem;
-    position: relative;
-  }
-  
-  .residents {
-    padding-top: 20px;
-    .text {
-        font-weight: 600;
-    }
-  }
-  
-  .actions {
-    position: relative;
-    right: -12px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding: 5px 0px 20px;
-  
-    div {
-        a {
-            display: block;
-            padding: 3px;
-        }
-        i {
-            display: block;
-            background: none;
-            width: 25px;
-            height: 25px;
-            border: 1px solid var(--color-border);
-            background: var(--color-background);
-            position: relative;
-            svg {
-                text-align: center;
-                top: calc(50% - 10px);
-                left: calc(50% - 9px);
-                position: absolute;
-            }
-        }
-    }
-  }
-  
-  .mainicon {
-    display: flex;
-    place-items: center;
-    place-content: center;
-    width: 25px;
-    height: 25px;
-  }
-  
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    color: var(--color-heading);
-  }
-  p {
-    padding-bottom: 5px;
-  }
-  
-  @media (min-width: 1024px) {
-    .item {
-      margin-top: 0;
-      padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
-      margin-bottom: 1rem;
-    }
+<style>
     .head {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         -ms-flex-align: end;
         align-items: flex-end;
         width: 100%;
+        margin-bottom: 30px;
     }
-  
-    .mainicon {
-      position: relative;
-      width: 80px;
-      height: 80px;
-    }
+
     h2 {
-        margin-left: 20px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--color-heading);
     }
+
+    .actions {
+        position: relative;
+        /* right: -12px; */
+        display: flex;
+        /* flex-direction: row; */
+        flex-wrap: nowrap;
+        padding: 5px 0px 8px;
+        align-self: flex-end;
+        margin-left: auto;
+
+        div {
+            a {
+                display: block;
+                padding: 3px;
+            }
+            i {
+                cursor: pointer;
+                display: block;
+                background: none;
+                width: 25px;
+                height: 25px;
+                border: 1px solid var(--color-border);
+                background: var(--color-background);
+                position: relative;
+                svg {
+                    text-align: center;
+                    top: calc(50% - 10px);
+                    left: calc(50% - 9px);
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .actions {
+            padding: 5px 0px 11px;
+            div {
+                i {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+
+    .mainicon {
+        display: flex;
+        place-items: center;
+        place-content: center;
+        width: 50px;
+        height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        
+        h2 {
+            margin-left: 20px;
+            font-size: 1.8rem;
+        }
+        .mainicon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+    }
+</style>
+
+<style scoped>
   
-    .item:first-of-type:before {
-      display: none;
+
+    p {
+        padding-bottom: 5px;
     }
+    
   
-    .item:last-of-type:after {
-      display: none;
+    .details {
+        flex: 1;
+        margin-left: 1rem;
+        position: relative;
     }
-  }
-  </style>
+    
+    .legend {
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        margin-top: 15px;
+        display: block;
+    }
+
+    @media (min-width: 1024px) {
+        .legend {
+            margin-top: 0;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        
+        .wrapper {
+            padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
+        }
+
+        .mainicon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .item:first-of-type:before {
+            display: none;
+        }
+
+        .item:last-of-type:after {
+            display: none;
+        }
+    }
+</style>
   

@@ -1,18 +1,20 @@
 <template>
     <div class="resident">
         <div class="details">
-            <h4>
-                {{ resident.name }}
-            </h4>
-            <div>
-                <p v-if="resident.mass"><strong>mass: </strong> {{ resident.mass }}</p>
-                <p v-if="resident.height"><strong>height: </strong> {{ resident.height }}</p>
-                <p v-if="resident.birthYear"><strong>birth year: </strong>{{ resident.birthYear }}</p>
-                <p v-if="resident.gender"><strong>Gender: </strong>{{ resident.gender }}</p>
-                <p v-if="resident.hairColor"><strong>hairColor: </strong>{{ resident.hairColor }}</p>
-                <p v-if="resident.skinColor"><strong>skinColor: </strong>{{ resident.skinColor }}</p>
-                <p v-if="resident.eyeColor"><strong>eyeColor:</strong> {{ resident.eyeColor }}</p>
-            </div>
+            <details>
+                <summary>
+                    <span class="type">{{ resident.name }}</span> 
+                </summary>            
+                <div class="body">
+                    <p v-if="resident.mass"><strong>mass: </strong> {{ resident.mass }}</p>
+                    <p v-if="resident.height"><strong>height: </strong> {{ resident.height }}</p>
+                    <p v-if="resident.birthYear"><strong>birth year: </strong>{{ resident.birthYear }}</p>
+                    <p v-if="resident.gender"><strong>Gender: </strong>{{ resident.gender }}</p>
+                    <p v-if="resident.hairColor"><strong>hairColor: </strong>{{ resident.hairColor }}</p>
+                    <p v-if="resident.skinColor"><strong>skinColor: </strong>{{ resident.skinColor }}</p>
+                    <p v-if="resident.eyeColor"><strong>eyeColor:</strong> {{ resident.eyeColor }}</p>
+                </div>
+            </details>
         </div>
     </div>
 </template>
@@ -57,5 +59,56 @@
             margin-bottom: 1rem;
         }
     }
+
+    details {
+        width: 100%;
+    }
+    
+    summary {
+        padding: 10px 20px;
+        font-size: large;
+        font-weight: 600;
+        background-color: #f2f2f2;
+        min-width: auto;
+        width: auto;
+    }
+
+    .body {
+        font-size: medium;
+        font-weight: normal;
+        margin-top: 1px solid #c0c0c0;
+        transition: all ease-in-out .5s;
+
+        span:not([class="ttle"]) {
+            display: block;
+            padding: 5px;
+            transition: all ease-in-out .5s;
+            font-weight: 600;
+            color: rgb(82, 82, 82);
+            .ttle {
+                color: rgb(82, 82, 82);
+                margin-right: 5px;
+                font-weight: normal;
+            }
+        }
+        span:not([class="ttle"]):hover {
+            background: #e6e6e6;
+        }
+    }
+
+    details summary  {
+        margin-bottom: -10px; /* for more prominent move */
+        transition: margin .3s ease-out;
+    }
+
+    details[open] summary {
+        margin-bottom: 5px;
+    }
+
+    details[open] summary ~ * {
+        /* animation: sweep .5s ease-in-out; */
+        margin-bottom: 0px;
+    }
+    
 </style>
     

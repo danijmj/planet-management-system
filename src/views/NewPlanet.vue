@@ -1,5 +1,5 @@
 <template>
-    <div class="item" v-if="planet">
+    <div class="wrapper" v-if="planet">
         <div class="head">
             <i class="mainicon">
                 <component v-bind:is="planetComponent"></component>
@@ -10,15 +10,15 @@
             <h2 v-else>
                 Add your new planet
             </h2>
-        </div>
-        
-        <div class="actions" v-if="id && planet">
-            <div class="edit">
-                <RouterLink :to="{ name: 'planet' , params: { id: id }}" title="Volver">
-                    <i><IconSee/></i>
-                </RouterLink>
+            <div class="actions" v-if="id && planet">
+                <div class="edit">
+                    <RouterLink :to="{ name: 'planet' , params: { id: id }}" title="Volver">
+                        <i><IconSee/></i>
+                    </RouterLink>
+                </div>
             </div>
         </div>
+        
         <div class="details">
             <div>
                 <div class="form-action">
@@ -278,14 +278,94 @@
         }
     }
 </script>
+
+<style>
+    .head {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        -ms-flex-align: end;
+        align-items: flex-end;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--color-heading);
+    }
+
+    .actions {
+        position: relative;
+        /* right: -12px; */
+        display: flex;
+        /* flex-direction: row; */
+        flex-wrap: nowrap;
+        padding: 5px 0px 8px;
+        align-self: flex-end;
+        margin-left: auto;
+
+        div {
+            a {
+                display: block;
+                padding: 3px;
+            }
+            i {
+                cursor: pointer;
+                display: block;
+                background: none;
+                width: 25px;
+                height: 25px;
+                border: 1px solid var(--color-border);
+                background: var(--color-background);
+                position: relative;
+                svg {
+                    text-align: center;
+                    top: calc(50% - 10px);
+                    left: calc(50% - 9px);
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .actions {
+            padding: 5px 0px 11px;
+            div {
+                i {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+
+    .mainicon {
+        display: flex;
+        place-items: center;
+        place-content: center;
+        width: 50px;
+        height: 50px;
+    }
+
+    @media (min-width: 1024px) {
+        
+        h2 {
+            margin-left: 20px;
+            font-size: 1.8rem;
+        }
+        .mainicon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+    }
+</style>
   
 <style scoped>
-    .item {
-        margin-top: 2rem;
-        display: block;
-        width: 100%;
-        position: relative;
-    }
 
     .form-action{
         display: block;
@@ -392,8 +472,8 @@
             i {
                 display: block;
                 background: none;
-                width: 25px;
-                height: 25px;
+                width: 50px;
+                height: 50px;
                 border: 1px solid var(--color-border);
                 background: var(--color-background);
                 position: relative;
@@ -426,10 +506,8 @@
     }
     
     @media (min-width: 1024px) {
-        .item {
-        margin-top: 0;
-        padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
-        margin-bottom: 1rem;
+        .wrapper {
+            padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
         }
         .head {
             display: flex;
@@ -441,9 +519,9 @@
         }
     
         .mainicon {
-        position: relative;
-        width: 80px;
-        height: 80px;
+            position: relative;
+            width: 80px;
+            height: 80px;
         }
         h2 {
             margin-left: 20px;
