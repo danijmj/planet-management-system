@@ -68,8 +68,8 @@
       PlanetDeletePopup
     },
     props: ['planet', 'id'],
-
-    setup(props) {
+    emits: ['deleted'],
+    setup(props, { emit }) {
       const icoComponents = [
           IconPlanetTwo,
           IconPlanet
@@ -97,8 +97,10 @@
       // Method to delete a planet
       const deletePlanet = () => {
         // To add some security
+        console.log('deleted')
         showPopup.value = false;
         useP.deleteItem(props.id)
+        emit('deleted')
       }
 
       // Method to cancel de deletion

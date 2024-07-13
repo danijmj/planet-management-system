@@ -18,8 +18,8 @@
     </select>
   </div>
 </div>
-  <template v-if="currentPlanets != null">
-    <PlanetPreview v-for="plan, key in currentPlanets" :planet="plan" :key="key" :id="plan.id">
+  <template v-if="resultAllComputed != null">
+    <PlanetPreview v-for="plan, key in resultAllComputed.slice(nItemsPerPage * page, nItemsPerPage * (page + 1))" :planet="plan" :key="key" :id="plan.id" @deleted="registeredDeletedItem">
       <template #name>{{plan.name}}</template>
       <template #diameter>{{plan.diameter}}</template>
       <template #climate>{{(plan.climates && plan.climates?.length > 0) ? plan.climates.join(', ') : undefined}}</template>
@@ -27,7 +27,7 @@
       <template #population>{{plan.population}}</template>
     </PlanetPreview>
     <nav class="pagination">
-      <a v-for="n in Math.ceil(nItems / nItemsPerPage)" :key="n" :class="{'page': true, 'active': (page == (n - 1))}" @click="page = (n-1)" :href="'#'+n ">{{ n }}</a>
+      <a v-for="n in nPages" :key="n" :class="{'page': true, 'active': (page == (n - 1))}" @click="page = (n-1)" :href="'#'+n ">{{ n }}</a>
     </nav>
   </template>
 </template>
@@ -39,47 +39,89 @@
   import { usePlanet } from '@/stores/planets'
   import type { PlanetType } from '@/types/planet';
   import { ref, computed, watch, type Ref } from 'vue'
-
+   
 
   const useP = usePlanet();
   const nItemsPerPage = 10
   // Get all planets
-  const allPlanets = computed(() => {
-    return Object.values(useP.getAllPlanets)
-  })
-  
-  let nItems = ref(allPlanets.value.length)
-
-
-  // We paginate the first time
+  const resultAll: Ref<PlanetType[]> = ref([]);
+  // The pagination var, setted in 0 the first time
   const page = ref(0)
-
-  let currentPlanets = computed(() => {
-    return getPaginatedPlanets(Object.values(useP.getAllPlanets), page.value)
-  })
-
-  // Field with current filer data (without pagination)
-  let resultAll: Ref<PlanetType[]>;
-  if (allPlanets.value) {
-    resultAll = ref(allPlanets.value);
-  }
-
   // Search field
   const text = ref('')
 
-  // watch works directly on a ref
-  watch(text, async () => {
+  const allPlanets = computed(() => {
+    return Object.values(useP.getAllPlanets)
+  })
+  // number of planets
+  let nItems = ref(allPlanets.value.length)
+  
+  let nPages = computed(() => {
+    return Math.ceil(nItems.value / nItemsPerPage)
+  })
+  // Constant of order
+  const typeOrder = ref('')
+  const senseOrder = ref('asc') 
 
-    resultAll.value = await [...allPlanets.value.filter(planet => 
+  // ResultAll computed rewritable var
+  const resultAllComputed = computed({
+    get() {
+      return resultAll.value
+    },
+    // setter
+    set(newValue) {
+      resultAll.value = newValue
+    }
+  })
+
+  // Field with current filer data (without pagination)
+  if (allPlanets.value) {
+    resultAllComputed.value = allPlanets.value
+  }
+
+  
+
+
+  /**
+   * Method to start the filter
+   */
+  const startFilterAndSort = () => {
+
+    resultAllComputed.value = allPlanets.value.filter(planet => 
     {
       return planet.name.toLowerCase().includes(text.value.toLowerCase()) || 
       planet.climates?.find(clim => clim.toLowerCase().includes(text.value.toLowerCase())) || 
       planet.terrains?.find(terr => terr.toLowerCase().includes(text.value.toLowerCase()))
-    })]
+    })
+
 
     order()
+  }
 
+  // watch works directly on a ref
+  watch(text, async () => {
+    startFilterAndSort()
   })
+
+ 
+
+  // We listen when the planets are modified from the store
+  watch (allPlanets, async () => {
+    // update te nitems
+    nItems.value = resultAllComputed.value.length
+    startFilterAndSort()
+    nPages = computed(() => {
+      return Math.ceil(nItems.value / nItemsPerPage)
+    })
+  })
+
+  /**
+   * used to rendered the data
+   */
+  const registeredDeletedItem = () => {
+    console.log("emited deleted detected")
+  }
+
 
   /**
    * Get a copy of the elements 
@@ -105,23 +147,18 @@
 
 
   /**
-   * Order section
+   * Order function
    */
-  const typeOrder = ref('')
-  const senseOrder = ref('asc') 
   const order = () => {
-
+    // Methods to sort the array fields
     const orderAscStringSimple = (ca:string, cb:string) => {return ca < cb ? -1 : 1}
     const orderDescStringSimple = (ca:string, cb:string) => {return ca > cb ? -1 : 1}
 
-    console.log("entrado en order")
     if (typeOrder.value) {
       
-      console.log("typeOrder.value", typeOrder.value)
-      console.log("senseOrder.value", senseOrder.value)
       switch(typeOrder.value) {
 
-        // Ordering the names
+        // Ordering by names
         case 'name':
           resultAll.value.sort((a: PlanetType, b: PlanetType) => {
             if (senseOrder.value == 'asc'){
@@ -134,6 +171,7 @@
           })
           break;
 
+        // Ordering by diameter
         case 'diameter':
           resultAll.value.sort((a: PlanetType, b: PlanetType) => {
             const va = a.diameter ? a.diameter : 0
@@ -147,7 +185,8 @@
             }
           })
           break;
-
+        
+        // Ordering by climate (by each field, ordering first the array and then ordered by the first element)
         case 'climate':
           resultAll.value.sort((a: PlanetType, b: PlanetType) => {
             if (senseOrder.value == 'asc' && a.climates && b.climates){
@@ -159,7 +198,8 @@
             }
           })
           break;
-
+        
+        // Ordering by terrain (by each field, ordering first the array and then ordered by the first element)
         case 'terrain':
           resultAll.value.sort((a: PlanetType, b: PlanetType) => {
             if (senseOrder.value == 'asc' && a.terrains && b.terrains){
@@ -171,7 +211,8 @@
             }
           })
           break;
-
+        
+        // Ordering by population
         case 'population':
           resultAll.value.sort((a: PlanetType, b: PlanetType) => {
             const va = a.population ? a.population : 0
@@ -189,21 +230,16 @@
 
       
     }
-    
+    // Set the frist page each filter and short event 
     page.value = 0
     computedVarsPlanets()
   }
 
+  /**
+   * Update the number of planets
+   */
   const computedVarsPlanets = () => {
-    
-    currentPlanets = computed(() => {
-      return getPaginatedPlanets(resultAll.value, page.value)
-    })
-
-    if (currentPlanets) {
-      nItems.value = resultAll.value.length
-      // let nPagesTotal = ref(Math.ceil(nItems.value / nItemsPerPage))
-    }
+    nItems.value = resultAll.value.length
   }
 
 
