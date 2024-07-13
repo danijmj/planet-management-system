@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import NewPlanet from '@/views/NewPlanet.vue'
 
 
 export const RouteNames = {
@@ -19,7 +18,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/planet/:id',
+      path: '/planet/:id?',
       name: RouteNames.PLANET,
       meta: {
         title: 'View Planet',
