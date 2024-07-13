@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { store } from '@/stores';
 import type { PlanetType } from '@/types/planet'
+import { computed, type ComputedRef } from 'vue';
 
 export interface ListPlanets {
     planets: { [key: string]: PlanetType }
@@ -15,8 +16,19 @@ export const usePlanetStore = defineStore({
         planets
     }),
     getters: {
+        /**
+         * Get all planets
+         * @returns the planet array
+         */
         getAllPlanets(): { [key: string]: PlanetType } {
             return this.planets;
+        },
+
+        /**
+         * Obtain the total number of the planets
+         */
+        getNumberPlanets(): number {
+            return Object.values(this.planets).length
         }
     },
     actions: {
