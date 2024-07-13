@@ -6,11 +6,9 @@
   const emit = defineEmits(['delete', 'no-delete']);
 
   function handleDelete() {
-    console.log("handleDelete")
     emit('delete');
   }
   function handleCancel() {
-    console.log("handleCancel")
     emit('no-delete');
   }
 
