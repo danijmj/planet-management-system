@@ -291,10 +291,10 @@
     }
 
     h2 {
-    font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    color: var(--color-heading);
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+        color: var(--color-heading);
     }
 
     .actions {
@@ -342,7 +342,7 @@
             }
         }
     }
-
+    
     .mainicon {
         display: flex;
         place-items: center;
@@ -456,51 +456,6 @@
         margin-top: 10px;
     }
     
-    .actions {
-        position: relative;
-        right: -12px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        padding: 5px 0px 20px;
-    
-        div {
-            a {
-                display: block;
-                padding: 3px;
-            }
-            i {
-                display: block;
-                background: none;
-                width: 50px;
-                height: 50px;
-                border: 1px solid var(--color-border);
-                background: var(--color-background);
-                position: relative;
-                svg {
-                    text-align: center;
-                    top: calc(50% - 10px);
-                    left: calc(50% - 9px);
-                    position: absolute;
-                }
-            }
-        }
-    }
-    
-    .mainicon {
-        display: flex;
-        place-items: center;
-        place-content: center;
-        width: 25px;
-        height: 25px;
-    }
-    
-    h2 {
-        font-size: 1.8rem;
-        font-weight: 500;
-        margin-bottom: 0.4rem;
-        color: var(--color-heading);
-    }
     p {
         padding-bottom: 5px;
     }
@@ -516,15 +471,6 @@
             -ms-flex-align: end;
             align-items: flex-end;
             width: 100%;
-        }
-    
-        .mainicon {
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-        h2 {
-            margin-left: 20px;
         }
     
         .item:first-of-type:before {
