@@ -24,20 +24,22 @@
               </a>
           </div>
       </div>
-      <p>
-          <span class="diameter">
-            <strong>Diameter: </strong><slot name="diameter"></slot>
-          </span>
-          <span class="climate">
-            <b>Climate: </b><slot name="climate"></slot>
-          </span>
-          <span class="terrain">
-            <b>Terrain: </b><slot name="terrain"></slot>
-          </span>
-          <span class="population">
-            <b>Population: </b><slot name="population"></slot>
-          </span>
-      </p>
+      <div>
+        <span class="diameter ">
+          <b>Diameter: </b><slot name="diameter"></slot>
+        </span>
+        <span class="climate ">
+          <b>Climate: </b><slot name="climate"></slot>
+        </span>
+      </div>
+      <div>
+        <span class="terrain ">
+          <b>Terrain: </b><slot name="terrain"></slot>
+        </span>
+        <span class="population ">
+          <b>Population: </b><slot name="population"></slot>
+        </span>
+      </div>
     </div>
   </div>
   <PlanetDeletePopup :msg="'¿Seguro que desea eliminar el planeta '+ planet.name +'?'" v-if="showPopup" @delete="deletePlanet" @no-delete="notDeletePlanet" />
@@ -126,6 +128,10 @@
     flex: 1;
     margin-left: 1rem;
     position: relative;
+  }
+
+  b {
+    font-weight: 600;
   }
 
   .actions {

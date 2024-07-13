@@ -202,3 +202,32 @@ body {
 .text-left {
   text-align: left;
 }
+
+
+.customScrollBar::-webkit-scrollbar {
+  width: 5px;               /* width of the entire scrollbar */
+}
+
+.customScrollBar::-webkit-scrollbar-track {
+  background: var(--vt-c-white-mute);        /* color of the tracking area */
+}
+
+.customScrollBar::-webkit-scrollbar-thumb {
+  background-color: var(--vt-c-ok);    /* color of the scroll thumb */
+  border-radius: 3px;       /* roundness of the scroll thumb */
+  border: 1px solid #fff;  /* creates padding around scroll thumb */
+}
+
+.customScrollBarGray::-webkit-scrollbar {
+  width: 5px;               /* width of the entire scrollbar */
+}
+
+.customScrollBarGray::-webkit-scrollbar-track {
+  background: transparent;        /* color of the tracking area */
+}
+
+.customScrollBarGray::-webkit-scrollbar-thumb {
+  background-color: var(--vt-c-divider-light-2);    /* color of the scroll thumb */
+  border-radius: 5px;       /* roundness of the scroll thumb */
+  border: 2px solid #fff;  /* creates padding around scroll thumb */
+}

@@ -3,7 +3,7 @@ import ListPlanets from '../components/planet/ListPlanets.vue'
 </script>
 
 <template>
-  <main>
+  <main class="customScrollBarGray">
     <ListPlanets />
   </main>
 </template>
