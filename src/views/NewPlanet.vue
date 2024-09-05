@@ -4,10 +4,10 @@
             <i class="mainicon">
                 <component v-bind:is="planetComponent"></component>
             </i>
-            <h2 v-if="id && planet">
+            <h2 class="namep" v-if="id && planet">
                 Edit the planet {{ planet.name }}
             </h2>
-            <h2 v-else>
+            <h2 class="namep" v-else>
                 Add your new planet
             </h2>
             <div class="actions" v-if="id && planet">
@@ -69,8 +69,8 @@
                 </div>
 
                 <div class="form-action form-action-btn">
-                    <button class="btn primary" v-if="id" v-on:click="savePlanet" >Save planet</button>
-                    <button class="btn primary" v-else v-on:click="createPlanet">Create planet</button>
+                    <button class="btn primary" v-if="id" v-on:click="savePlanet" id="savep" >Save planet</button>
+                    <button class="btn primary" v-else v-on:click="createPlanet" id="createp">Create planet</button>
                 </div>
             </div>
         </div>
@@ -290,7 +290,7 @@
         margin-bottom: 30px;
     }
 
-    h2 {
+    .namep {
         font-size: 1.4rem;
         font-weight: 500;
         margin-bottom: 0.4rem;
@@ -353,7 +353,7 @@
 
     @media (min-width: 1024px) {
         
-        h2 {
+        .namep {
             margin-left: 20px;
             font-size: 1.8rem;
         }

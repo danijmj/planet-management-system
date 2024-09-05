@@ -4,7 +4,7 @@
             <i class="mainicon">
                 <component v-bind:is="planetComponent"></component>
             </i>
-            <h2>
+            <h2 class="namep">
                 {{planet.name}}
             </h2>
             <div class="actions">
@@ -143,7 +143,7 @@
         margin-bottom: 30px;
     }
 
-    h2 {
+    .namep {
         font-size: 1.4rem;
         font-weight: 500;
         margin-bottom: 0.4rem;
@@ -206,7 +206,7 @@
 
     @media (min-width: 1024px) {
         
-        h2 {
+        .namep {
             margin-left: 20px;
             font-size: 1.8rem;
         }
