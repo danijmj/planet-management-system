@@ -17,10 +17,15 @@ This project is a planet system management, with this possibilities:
 
 ## Tech stack
 Main languages: JS and TS
+
 Framework js: Vue.js
+
 Build tool: Vite
+
 Unit test: Vitest
+
 Test end-to-end: Cypress
+
 Deploy: Docker image & docker-compose file
 
 
@@ -82,7 +87,7 @@ pnpm test:e2e
 pnpm lint
 ```
 
-### Up Docker Container
+### Deploy with Docker
 
 ```sh
 docker compose -f "docker-compose.yml" up -d --build
