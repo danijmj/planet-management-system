@@ -21,6 +21,7 @@ Framework js: Vue.js
 Build tool: Vite
 Unit test: Vitest
 Test end-to-end: Cypress
+Deploy: Docker image & docker-compose file
 
 
 ## Recommended IDE Setup
@@ -79,4 +80,10 @@ pnpm test:e2e
 
 ```sh
 pnpm lint
+```
+
+### Up Docker Container
+
+```sh
+docker compose -f "docker-compose.yml" up -d --build
 ```
